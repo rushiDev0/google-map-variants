@@ -3,7 +3,7 @@ import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {APIProvider, Map, Pin} from '@vis.gl/react-google-maps';
 import MarkerComponent from "@/components/MarkerComponent";
 import InfoWindowComponent from "@/components/InfoWindowComponent";
-import {info} from "next/dist/build/output/log";
+import {Polygon} from "@/components/polygon";
 
 
 const Z_INDEX_SELECTED = 4;
