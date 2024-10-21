@@ -57,11 +57,17 @@ export default function GoogleMapReact() {
         console.log(infoWindowOpen);
     }, [selectedId, infoWindowOpen, selectedMarker]);
 
+    const convertCoordinates = (coordinates) => {
+        return coordinates.map(ring =>
+            ring.map(c => ({lat: c[1], lng: c[0]}))
+        );
+    };
+
     return (
         <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY} libraries={['marker']}>
             <Map
                 mapId={'bf51a910020fa25a'}
-                className={'w-full h-screen'}
+                className={'w-full h-screen [filter:brightness(100%)_contrast(100%)_saturate(0%)_blur(0px)_hue-rotate(0deg)]'}
                 defaultZoom={5}
                 defaultCenter={{ lat: 21.1610858, lng: 79.0725101 }}
                 gestureHandling={'greedy'}
@@ -142,11 +148,13 @@ export default function GoogleMapReact() {
                     <Polygon
                         key={index}
                         paths={feature.geometry.coordinates}
-                        strokeColor={'#FF0000'}
-                        strokeOpacity={0.8}
-                        strokeWeight={2}
-                        fillColor={'#FF0000'}
-                        fillOpacity={0.35}
+                        options={{
+                            strokeColor: '#1D1D54',
+                            strokeOpacity: 0.8,
+                            strokeWeight: 2,
+                            fillColor: '#1D1D54',
+                            fillOpacity: 0.5
+                        }}
                     />
                 ))}
             </Map>
