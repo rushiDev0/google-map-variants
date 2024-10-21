@@ -4,6 +4,7 @@ import {APIProvider, Map, Pin} from '@vis.gl/react-google-maps';
 import MarkerComponent from "@/components/MarkerComponent";
 import InfoWindowComponent from "@/components/InfoWindowComponent";
 import {Polygon} from "@/components/polygon";
+import {MoomarkLocation} from '@/components/geoJson/moomarkLocation'
 
 
 const Z_INDEX_SELECTED = 4;
@@ -136,6 +137,18 @@ export default function GoogleMapReact() {
                         handleInfoWindowCloseClick={handleInfoWindowCloseClick}
                     />
                 )}
+
+                {MoomarkLocation.features.map((feature, index) => (
+                    <Polygon
+                        key={index}
+                        paths={feature.geometry.coordinates}
+                        strokeColor={'#FF0000'}
+                        strokeOpacity={0.8}
+                        strokeWeight={2}
+                        fillColor={'#FF0000'}
+                        fillOpacity={0.35}
+                    />
+                ))}
             </Map>
         </APIProvider>
     );
