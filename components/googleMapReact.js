@@ -57,24 +57,19 @@ export default function GoogleMapReact() {
         console.log(infoWindowOpen);
     }, [selectedId, infoWindowOpen, selectedMarker]);
 
-    const convertCoordinates = (coordinates) => {
-        return coordinates.map(ring =>
-            ring.map(c => ({lat: c[1], lng: c[0]}))
-        );
-    };
-
     return (
         <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY} libraries={['marker']}>
             <Map
-                mapId={'bf51a910020fa25a'}
-                className={'w-full h-screen [filter:brightness(100%)_contrast(100%)_saturate(0%)_blur(0px)_hue-rotate(0deg)]'}
+                mapId={'b5387d230c6cf22f'}
+                className={'w-full h-screen'}
                 defaultZoom={5}
                 defaultCenter={{ lat: 21.1610858, lng: 79.0725101 }}
                 gestureHandling={'greedy'}
                 onClick={onMapClick}
                 clickableIcons={false}
-                disableDefaultUI>
-                {markers.map(({id, zIndex: zIndexDefault, position, type, data}) => {
+                disableDefaultUI
+            >
+                {markers.map(({id, zIndex: zIndexDefault, position, type, index}) => {
 
                     let zIndex= zIndexDefault
 
@@ -88,9 +83,8 @@ export default function GoogleMapReact() {
 
                     if(type === 'active'){
                         return(
-                        <>
                             <MarkerComponent
-                                key={id}
+                                key={index}
                                 onMarkerClick={(marker) => onMarkerClick(id, marker)}
                                 onMouseEnter={() => onMouseEnter(id)}
                                 onMouseLeave={onMouseLeave}
@@ -107,31 +101,28 @@ export default function GoogleMapReact() {
                                     glyphColor={selectedId === id ? '#FFFFFF' : '#FFFFFF'}
                                 />
                             </MarkerComponent>
-                        </>
                         )
                     }
                     if(type === 'planned'){
                         return(
-                            <>
-                                <MarkerComponent
-                                    key={id}
-                                    onMarkerClick={(marker) => onMarkerClick(id, marker)}
-                                    onMouseEnter={() => onMouseEnter(id)}
-                                    onMouseLeave={onMouseLeave}
-                                    zIndex={zIndex}
-                                    className={""}
-                                    style={{
-                                        transform: `scale(${[hoverId, selectedId].includes(id) ? 1.4 : 1})`
-                                    }}
-                                    position={position}
-                                >
-                                    <Pin
-                                        background={selectedId === id ? '#FD003A' : '#FD003A'}
-                                        borderColor={selectedId === id ? '#BF0000' : '#BF0000'}
-                                        glyphColor={selectedId === id ? '#FFFFFF' : '#FFFFFF'}
-                                    />
-                                </MarkerComponent>
-                            </>
+                            <MarkerComponent
+                                key={index}
+                                onMarkerClick={(marker) => onMarkerClick(id, marker)}
+                                onMouseEnter={() => onMouseEnter(id)}
+                                onMouseLeave={onMouseLeave}
+                                zIndex={zIndex}
+                                className={""}
+                                style={{
+                                    transform: `scale(${[hoverId, selectedId].includes(id) ? 1.4 : 1})`
+                                }}
+                                position={position}
+                            >
+                                <Pin
+                                    background={selectedId === id ? '#FD003A' : '#FD003A'}
+                                    borderColor={selectedId === id ? '#BF0000' : '#BF0000'}
+                                    glyphColor={selectedId === id ? '#FFFFFF' : '#FFFFFF'}
+                                />
+                            </MarkerComponent>
                         )
                     }
                 })}
@@ -152,7 +143,7 @@ export default function GoogleMapReact() {
                             strokeColor: '#1D1D54',
                             strokeOpacity: 0.8,
                             strokeWeight: 2,
-                            fillColor: '#1D1D54',
+                            fillColor: '#706AFE',
                             fillOpacity: 0.5
                         }}
                     />
@@ -165,12 +156,12 @@ export default function GoogleMapReact() {
 export const LocationMarkers = [
     {
         id: 1,
-        position: { lat: 12.891438, lng: 77.641499 },
+        position: { lat: 12.8914431, lng: 77.6366283 },
         type: 'active',
-        zIndex: 0,
+        zIndex: 1,
         data: {
-            title: 'title A',
-            address: 'address A lorem ipsum dolor sit lorem ipsum dolor sit',
+            title: 'Registered office',
+            address: '46/4, Novel Tech Park, Garvebhavi Palya, Hosur Road, Near Kudlu Gate, Bengaluru, Karnataka - 560068, India',
             link: 'https://maps.app.goo.gl/Ts6Jopq5FtcLf9gE9',
         }
     },
@@ -178,32 +169,43 @@ export const LocationMarkers = [
         id: 2,
         position: { lat: 25.3763728, lng: 83.0490821 },
         type: 'active',
-        zIndex: 1,
+        zIndex: 2,
         data: {
-            title: 'title B',
-            address: 'address B lorem ipsum dolor sit lorem ipsum dolor sit',
+            title: 'Regional offices',
+            address: 'Rustampur, Gazipur Road, Post-Ashapur, Varanasi, Uttar Pradesh, India',
             link: 'https://maps.app.goo.gl/Ts6Jopq5FtcLf9gE9',
         }
     },
     {
         id: 3,
-        position: { lat: 19.488157, lng: 80.558399 },
-        type: 'planned',
-        zIndex: 2,
+        position: { lat: 13.155086, lng: 78.4009528 },
+        type: 'active',
+        zIndex: 3,
         data: {
-            title: 'title C',
-            address: 'address C lorem ipsum dolor sit lorem ipsum dolor sit',
+            title: 'Regional office',
+            address: 'Mulbagal Taluk, Kolar District, Karnataka, India',
             link: 'https://maps.app.goo.gl/Ts6Jopq5FtcLf9gE9',
         }
     },
     {
         id: 4,
-        position: { lat: 16.4009528, lng: 74.155086 },
+        position: { lat: 12.7465102, lng: 77.3770563 },
         type: 'planned',
-        zIndex: 3,
+        zIndex: 4,
         data: {
-            title: 'title D',
-            address: 'address D lorem ipsum dolor sit lorem ipsum dolor sit',
+            title: 'mooMark processing plant',
+            address: 'Bidadi, Ramanagara, Karnataka, India',
+            link: 'https://maps.app.goo.gl/Ts6Jopq5FtcLf9gE9',
+        }
+    },
+    {
+        id: 4,
+        position: { lat: 25.2728967, lng: 82.8525277 },
+        type: 'planned',
+        zIndex: 4,
+        data: {
+            title: 'mooMark processing plant',
+            address: 'Rajatalab Tahsil, Varanasi, Uttar Pradesh, India',
             link: 'https://maps.app.goo.gl/Ts6Jopq5FtcLf9gE9',
         }
     },

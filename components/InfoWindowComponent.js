@@ -10,7 +10,7 @@ export default function InfoWindowComponent({selectedMarker, handleInfoWindowClo
             anchor={selectedMarker}
             onCloseClick={handleInfoWindowCloseClick}>
             <h5 className="font-bold">{data.title}</h5>
-            <p>{data.address}</p>
+            <p className='max-w-60'>{data.address}</p>
             <Link href={data.link} className="font-medium italic after:content-['↗'] after:pr-2" aria-label={''} target={'_blank'}>Get direction</Link>
         </InfoWindow>
     );
